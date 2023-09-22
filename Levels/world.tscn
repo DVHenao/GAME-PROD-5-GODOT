@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://dv40k7uuhbos5"]
+[gd_scene load_steps=2 format=3 uid="uid://dv40k7uuhbos5"]
+
+[ext_resource type="Texture2D" uid="uid://xgtrnswegrgh" path="res://Assets/tilesets/decor_8x8.png" id="1_kg80o"]
 
 [node name="World" type="Node2D"]
+
+[node name="Decor8x8" type="Sprite2D" parent="."]
+position = Vector2(159, 80)
+texture = ExtResource("1_kg80o")
