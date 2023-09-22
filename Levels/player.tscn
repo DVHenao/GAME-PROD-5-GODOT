@@ -418,13 +418,15 @@ radius = 5.09902
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_fgc3d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -15)
 sprite_frames = SubResource("SpriteFrames_7f1vu")
 animation = &"Front Idle"
-frame_progress = 0.258836
+frame_progress = 0.676341
 offset = Vector2(0, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

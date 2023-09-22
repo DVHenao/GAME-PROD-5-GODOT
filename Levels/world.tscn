@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dv40k7uuhbos5"]
+[gd_scene load_steps=14 format=3 uid="uid://dv40k7uuhbos5"]
 
 [ext_resource type="Texture2D" uid="uid://xgtrnswegrgh" path="res://Assets/tilesets/decor_8x8.png" id="1_kg80o"]
 [ext_resource type="Texture2D" uid="uid://c3tldw00muh6c" path="res://Assets/tilesets/plains.png" id="1_nkmmq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://by06otc3tw8j7" path="res://Assets/tilesets/walls/walls.png" id="3_cxve2"]
 [ext_resource type="Texture2D" uid="uid://wpf2ho1vnqbm" path="res://Assets/objects/objects.png" id="5_3s8bj"]
 [ext_resource type="PackedScene" uid="uid://ct6isa1u7q4xo" path="res://Levels/player.tscn" id="6_qpqnm"]
+[ext_resource type="PackedScene" uid="uid://ds7xoackcpqae" path="res://Levels/enemy.tscn" id="7_2lqg6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yopod"]
 texture = ExtResource("1_nkmmq")
@@ -303,3 +304,6 @@ layer_2/tile_data = PackedInt32Array(262146, 655365, 7, 983043, 655365, 7, 10485
 
 [node name="Player" parent="." instance=ExtResource("6_qpqnm")]
 position = Vector2(56, 160)
+
+[node name="Enemy" parent="." instance=ExtResource("7_2lqg6")]
+position = Vector2(250, 169)
