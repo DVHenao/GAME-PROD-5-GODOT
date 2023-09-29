@@ -1,5 +1,11 @@
 extends CharacterBody2D
 
+
+var enemyAttackRange = false
+var attackCooldown = true
+var health = 100 
+var playerAlive = true;
+
 const speed = 100
 
 var current_direction = "none"
@@ -11,6 +17,13 @@ func ready():
 
 func _physics_process(delta):
 	player_movement(delta)
+	attack()
+	
+	if health <= 0:
+		playerAlive = false
+		health = 0
+		print("player dead")
+		self.queue_free()
 	
 	
 func player_movement(delta):
@@ -72,3 +85,28 @@ func play_anim(movement):
 		elif movement == 0:
 			anim.play("Front Idle")
 	
+
+
+func _on_hitbox_body_entered(body):
+	if body.has_method("Enemy"):
+		enemyAttackRange = true
+
+
+func _on_hitbox_body_exited(body):
+	if body.has_method("Enemy"):
+		enemyAttackRange = false
+		
+		
+func attack():
+	if enemyAttackRange and attackCooldown == true:
+		health = health - 20
+		attackCooldown = false
+		$HurtboxCooldown.start()
+		print(health)
+	
+func player():
+	pass
+
+
+func _on_hurtbox_cooldown_timeout():
+	attackCooldown = true

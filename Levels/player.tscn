@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://ct6isa1u7q4xo"]
+[gd_scene load_steps=57 format=3 uid="uid://ct6isa1u7q4xo"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerScript.gd" id="1_fgc3d"]
 [ext_resource type="Texture2D" uid="uid://ya83jkupekgk" path="res://Assets/characters/player.png" id="2_t51fi"]
@@ -416,6 +416,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_wi8rp"]
 radius = 5.09902
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xf1rw"]
+radius = 12.0
+
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 3
@@ -426,9 +429,22 @@ script = ExtResource("1_fgc3d")
 position = Vector2(-1, -15)
 sprite_frames = SubResource("SpriteFrames_7f1vu")
 animation = &"Front Idle"
-frame_progress = 0.676341
+frame_progress = 0.929071
 offset = Vector2(0, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -10)
 shape = SubResource("CircleShape2D_wi8rp")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(-1, -15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_xf1rw")
+
+[node name="HurtboxCooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="Hitbox" to="." method="_on_hitbox_body_exited"]
+[connection signal="timeout" from="HurtboxCooldown" to="." method="_on_hurtbox_cooldown_timeout"]
