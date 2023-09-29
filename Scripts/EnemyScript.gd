@@ -8,6 +8,13 @@ var health = 100
 var playerInAttackZone = false
 var HurtboxActive = true
 
+var enemyInstance = preload("res://Levels/enemy.tscn")
+
+func InstantiateEnemy(pos):
+	var instance = enemyInstance.instantiate()
+
+	instance.position = pos
+	add_child(instance)
 
 func _physics_process(delta):
 	takedamage()
@@ -59,6 +66,8 @@ func takedamage():
 			print("slime health = ", health)
 			if health <=0:
 				self.queue_free()
+				health = 100
+				InstantiateEnemy(Vector2(250,150))
 		
 
 

@@ -1,12 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://dv40k7uuhbos5"]
+[gd_scene load_steps=17 format=3 uid="uid://dv40k7uuhbos5"]
 
 [ext_resource type="Texture2D" uid="uid://xgtrnswegrgh" path="res://Assets/tilesets/decor_8x8.png" id="1_kg80o"]
 [ext_resource type="Texture2D" uid="uid://c3tldw00muh6c" path="res://Assets/tilesets/plains.png" id="1_nkmmq"]
+[ext_resource type="Script" path="res://Scripts/Spawner.gd" id="1_x3p3b"]
 [ext_resource type="Texture2D" uid="uid://dywrfvat8ho0k" path="res://Assets/tilesets/grass.png" id="2_3v1rp"]
 [ext_resource type="Texture2D" uid="uid://by06otc3tw8j7" path="res://Assets/tilesets/walls/walls.png" id="3_cxve2"]
 [ext_resource type="Texture2D" uid="uid://wpf2ho1vnqbm" path="res://Assets/objects/objects.png" id="5_3s8bj"]
 [ext_resource type="PackedScene" uid="uid://ct6isa1u7q4xo" path="res://Levels/player.tscn" id="6_qpqnm"]
 [ext_resource type="PackedScene" uid="uid://ds7xoackcpqae" path="res://Levels/enemy.tscn" id="7_2lqg6"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="7_3wcov"]
+
+[sub_resource type="GDScript" id="GDScript_ew8e1"]
+script/source = "extends Node2D
+"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yopod"]
 texture = ExtResource("1_nkmmq")
@@ -280,6 +286,7 @@ sources/5 = SubResource("TileSetAtlasSource_ydt6r")
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
+script = SubResource("GDScript_ew8e1")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -302,8 +309,17 @@ layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array(262146, 655365, 7, 983043, 655365, 7, 1048594, 655365, 7, 851998, 655365, 7, 327711, 655365, 7, 262149, 5, 5, 1048613, 5, 5, 852004, 5, 5, 1048611, 5, 5, 1048608, 5, 5, 983073, 5, 5, 1114142, 5, 5, 1048604, 5, 5, 1048602, 5, 5, 983064, 5, 5, 1048589, 5, 5, 1048586, 5, 5, 1048581, 5, 5, 1048583, 5, 5, 983048, 5, 5, 983050, 5, 5, 1048588, 5, 5, 262178, 5, 5, 327717, 655365, 7, 131091, 524293, 6, 262163, 524293, 6, 131096, 524293, 6, 262168, 524293, 6, 917525, 393221, 7, 327706, 393221, 7, 393225, 393221, 7, 393236, 5, 0, 65545, 5, 1, 786465, 5, 1, 917505, 5, 1)
 
-[node name="Player" parent="." instance=ExtResource("6_qpqnm")]
+[node name="PlayersANDEnemies" type="Node" parent="."]
+script = ExtResource("7_3wcov")
+
+[node name="Timer" type="Timer" parent="PlayersANDEnemies"]
+autostart = true
+script = ExtResource("1_x3p3b")
+
+[node name="Player" parent="PlayersANDEnemies" instance=ExtResource("6_qpqnm")]
 position = Vector2(56, 160)
 
-[node name="Enemy" parent="." instance=ExtResource("7_2lqg6")]
-position = Vector2(250, 169)
+[node name="Enemy" parent="PlayersANDEnemies" instance=ExtResource("7_2lqg6")]
+position = Vector2(250, 150)
+
+[connection signal="timeout" from="PlayersANDEnemies/Timer" to="PlayersANDEnemies/Timer" method="_on_timeout"]
