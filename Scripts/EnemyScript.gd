@@ -4,7 +4,14 @@ var speed = 30
 var chasestate = null 
 var player = null
 
+var health = 100
+var playerInAttackZone = false
+var HurtboxActive = true
+
+
 func _physics_process(delta):
+	takedamage()
+	
 	if chasestate == true:
 		position += (player.position - position)/speed
 		
@@ -34,4 +41,26 @@ func Enemy():
 
 
 
+func _on_enemy_hitbox_body_entered(body):
+	if body.has_method("player"):
+		playerInAttackZone = true
 
+
+func _on_enemy_hitbox_body_exited(body):
+	if body.has_method("player"):
+		playerInAttackZone = false
+
+func takedamage():
+	if playerInAttackZone and Global.player_current_attack == true:
+		if HurtboxActive == true:
+			health = health - 20
+			$HurtboxCooldown.start()
+			HurtboxActive = false
+			print("slime health = ", health)
+			if health <=0:
+				self.queue_free()
+		
+
+
+func _on_hurtbox_cooldown_timeout():
+	HurtboxActive = true
